@@ -25,22 +25,31 @@ const FinancingForm = () => {
     formState: { errors, isSubmitting },
   } = useFormContext<FinancingFormValues>();
   const [countries, setCountries] = useState<CountryOption[]>([]);
-  const watchCountry = watch("country");
 
-  // const onSubmit = async (values: FinancingFormValues) => {
-  //   try {
-  //     const response = await submitFinancingRequest(values);
-  //     console.log(response);
-  //     alert("Submitted successfully!");
-  //     reset();
-  //   } catch (error) {
-  //     alert("Submission failed. Please try again.");
-  //   }
-  // };
+  const watchCountry = watch("country");
+  const watchStart = watch("validityStart");
+  const watchEnd = watch("validityEnd");
+
+  // Note: This function calcuates the validity period in case if the BE wants the FE to calculate it and send it to the BE.
+  const msInYear = 1000 * 60 * 60 * 24 * 365.25;
+  const validityPeriodYears = (() => {
+    if (!watchStart || !watchEnd) return 0;
+    return parseFloat(
+      (
+        (new Date(watchEnd)?.getTime() - new Date(watchStart)?.getTime()) /
+        msInYear
+      )?.toFixed(2)
+    );
+  })();
 
   const onSubmit = async (values: FinancingFormValues) => {
+    const payload = {
+      ...values,
+      // Note: Added calculated validity period in case if the BE needs it to be sent from the FE.
+      validityPeriod: validityPeriodYears,
+    };
     try {
-      const response = await submitFinancingRequest(values);
+      const response = await submitFinancingRequest(payload);
       console.log(response);
       showToast({
         message: "Request submitted successfully!",
@@ -75,7 +84,7 @@ const FinancingForm = () => {
       className="flex flex-col gap-4 p-6 rounded-lg shadow-md text-start bg-white mt-1"
     >
       <Input
-        name="name"
+        name="fullName"
         label={<LabelWithAsterisk text="Full Name" />}
         pattern="^(?!\s*$).+"
       />

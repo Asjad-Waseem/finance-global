@@ -1,5 +1,5 @@
 export interface FinancingFormValues {
-  name: string;
+  fullName: string;
   country: string;
   projectCode: string;
   description: string;

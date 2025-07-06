@@ -4,7 +4,7 @@ import type { FinancingFormValues } from "../types";
 
 export const FinancingFormSchema = z
   .object({
-    name: z
+    fullName: z
       .string()
       .min(1, "Name is required")
       .refine(
@@ -48,7 +48,7 @@ export const FinancingFormSchema = z
   });
 
 export const defaultValues: FinancingFormValues = {
-  name: "",
+  fullName: "",
   country: "",
   projectCode: "",
   description: "",

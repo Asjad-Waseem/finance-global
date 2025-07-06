@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { BASE_URL } from "../../../config-global";
+
 const axiosInstance = axios.create({
-  baseURL: "http://test-noema-api.azurewebsites.net/api",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
