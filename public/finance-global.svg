@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#002B5B"/>
+  <text x="16" y="42" font-family="Segoe UI, sans-serif" font-size="24" font-weight="bold" fill="#00FFD1" letter-spacing="2">
+    FG
+  </text>
+</svg>
